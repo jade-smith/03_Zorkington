@@ -14,11 +14,11 @@
 */
 
 export const gameDetails = {   
-    title: 'Game Title',
-    desc: 'Welcome to the world of... here are some quick rules & concepts...',
-    author: 'Student Name',
-    cohort: 'SBPT-2022',
-    startingRoomDescription: 'What you see before you is...',
+    title: 'Barbie Dream House',
+    desc: 'Welcome to the world of Barbie! Here are some quick rules & concepts...',
+    author: 'Jade Smith',
+    cohort: 'PTSB-2023',
+    startingRoomDescription: 'What you see before you is the entryway.',
     playerCommands: [
         // replace these with your games commands as needed
         'inspect', 'view', 'look', 'pickup',
@@ -62,4 +62,55 @@ export const domDisplay = (playerInput) => {
     */
 
     // Your code here
+    function Layout (location){
+
+      let startingRoom = 'entryway';
+
+      let locations = {
+        entryway: ['stairs', 'living room'],
+        'living room': ['garden'],
+        stairs: ['bedroom'],
+        bedroom: ['bathroom']
+      };
+
+      let currentLocation = startingRoom;
+
+      let validLocation = locations[currentLocation];
+      
+      if (validLocation.includes(location)){
+        currentLocation = location;
+      } else {return 'oops! you cannot go this way...'}
+    }
+    
+    // Process player input
+    const command = playerInput.trim().toLowerCase();
+    
+    // Placeholder variable to store the response
+    let response = "";
+    
+    // Check the command and perform actions accordingly
+    if (command === "look") {
+      // Display room description
+      response = currentLocation.description;
+    } else if (command === "move") {
+      
+    } else if (command === "pickup") {
+      // Handle picking up items
+      // Check if the item is available in the current room and movable
+      // Update the player's inventory and room's item list
+      // Update the response to indicate successful pickup or failure
+    } else if (command === "inventory") {
+      // Display player's inventory
+      response = "You are carrying: " + playerInventory.join(", ");
+    } else {
+      // Unknown command
+      response = "I don't know how to " + command;
+    }
+    
+    // Return the response to be displayed in the game interface
+    return response;
+    
+    const userInput = "look"; // Sample user input
+    const displayText = domDisplay(playerInput);
+    console.log(displayText);
 } 
