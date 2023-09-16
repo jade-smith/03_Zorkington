@@ -14,14 +14,14 @@
 */
 
 export const gameDetails = {   
-    title: 'Barbie Dream House',
-    desc: 'Welcome to the world of Barbie! Here are some quick rules & concepts...',
+    title: 'Zorkington',
+    desc: 'Welcome to Zorkington! Here are some quick rules & concepts...',
     author: 'Jade Smith',
     cohort: 'PTSB-2023',
     startingRoomDescription: 'What you see before you is the entryway.',
     playerCommands: [
         // replace these with your games commands as needed
-        'inspect', 'view', 'look', 'pickup',
+        'look', 'pickup', 'enter', 'inventory'
     ]
     // Commands are basic things that a player can do throughout the game besides possibly moving to another room. This line will populate on the footer of your game for players to reference. 
     // This shouldn't be more than 6-8 different commands.
@@ -67,11 +67,28 @@ export const domDisplay = (playerInput) => {
       let startingRoom = 'entryway';
 
       let locations = {
-        entryway: ['stairs', 'living room'],
-        'living room': ['garden'],
-        stairs: ['bedroom'],
-        bedroom: ['bathroom']
+        entryway: {
+          description: "You are in the entryway. It's a welcoming room with a coat rack and sunroof. You can see the living room and the stairs.",
+          exits: ['stairs', 'living room'],
+        },
+        'living room': {
+          description: 'You are in the living room. There is a TV, a large comfortable sofa, and a puppy. You can see the entryway and the garden',
+          exits: ['entryway', 'garden'],
+        },
+        stairs: {
+          description: 'You are on the stairs where a painting is hung on the wall. You can see the entryway and the bedroom.',
+          exits: ['entryway', 'bedroom'],
+        },
+        bedroom: {
+          description: 'You are in the bedroom. There is a king bed, dresser, .',
+          exits: ['stairs', 'bathroom'],
+        },
+        bathroom: {
+          description: 'You are in the bathroom. There is a bathtub and a sink.',
+          exits: ['bedroom'],
+        },
       };
+            
 
       let currentLocation = startingRoom;
 
@@ -92,7 +109,7 @@ export const domDisplay = (playerInput) => {
     if (command === "look") {
       // Display room description
       response = currentLocation.description;
-    } else if (command === "move") {
+    } else if (command === "enter") {
       
     } else if (command === "pickup") {
       // Handle picking up items
@@ -108,7 +125,7 @@ export const domDisplay = (playerInput) => {
     }
     
     // Return the response to be displayed in the game interface
-    return response;
+    //return response;
     
     const userInput = "look"; // Sample user input
     const displayText = domDisplay(playerInput);
