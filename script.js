@@ -28,6 +28,42 @@ export const gameDetails = {
 }
 
 // Your code here
+function Layout (location){
+
+  let startingRoom = 'entryway';
+
+  let locations = {
+    entryway: {
+      description: "You are in the entryway. It's a welcoming room with a coat rack and sunroof. You can see the living room and the stairs.",
+      exits: ['stairs', 'living room'],
+    },
+    'living room': {
+      description: 'You are in the living room. There is a TV, a large comfortable sofa, and a puppy. You can see the entryway and the garden',
+      exits: ['entryway', 'garden'],
+    },
+    stairs: {
+      description: 'You are on the stairs where a painting is hung on the wall. You can see the entryway and the bedroom.',
+      exits: ['entryway', 'bedroom'],
+    },
+    bedroom: {
+      description: 'You are in the bedroom. There is a king bed, dresser, cellphone, and a book. You can see the stairs and the bathroom',
+      exits: ['stairs', 'bathroom'],
+    },
+    bathroom: {
+      description: 'You are in the bathroom. There is a bathtub, toothbrush, lipstick, and handsoap. You can see the bedroom.',
+      exits: ['bedroom'],
+    },
+  };
+        
+
+  let currentLocation = startingRoom;
+
+  let validLocation = locations[currentLocation];
+  
+  if (validLocation.includes(location)){
+    currentLocation = location;
+  } else {return 'oops! you cannot go this way...'}
+}
 
 export const domDisplay = (playerInput) => {
     /* 
@@ -62,61 +98,22 @@ export const domDisplay = (playerInput) => {
     */
 
     // Your code here
-    function Layout (location){
 
-      let startingRoom = 'entryway';
-
-      let locations = {
-        entryway: {
-          description: "You are in the entryway. It's a welcoming room with a coat rack and sunroof. You can see the living room and the stairs.",
-          exits: ['stairs', 'living room'],
-        },
-        'living room': {
-          description: 'You are in the living room. There is a TV, a large comfortable sofa, and a puppy. You can see the entryway and the garden',
-          exits: ['entryway', 'garden'],
-        },
-        stairs: {
-          description: 'You are on the stairs where a painting is hung on the wall. You can see the entryway and the bedroom.',
-          exits: ['entryway', 'bedroom'],
-        },
-        bedroom: {
-          description: 'You are in the bedroom. There is a king bed, dresser, cellphone, and a book. You can see the stairs and the bathroom',
-          exits: ['stairs', 'bathroom'],
-        },
-        bathroom: {
-          description: 'You are in the bathroom. There is a bathtub, toothbrush, lipstick, and handsoap. You can see the bedroom.',
-          exits: ['bedroom'],
-        },
-      };
-            
-
-      let currentLocation = startingRoom;
-
-      let validLocation = locations[currentLocation];
-      
-      if (validLocation.includes(location)){
-        currentLocation = location;
-      } else {return 'oops! you cannot go this way...'}
-    }
-    
-    // Process player input
-    const command = playerInput.trim().toLowerCase();
-    
     // Placeholder variable to store the response
     let response = "";
     
     // Check the command and perform actions accordingly
-    if (command === "look") {
+    if (playerInput.includes('look')) {
       // Display room description
       response = locations[currentLocation].description;
-    } else if (command === "enter") {
+    } else if (playerInput.includes('enter')) {
       
-    } else if (command === "pickup") {
+    } else if (playerInput.includes('pickup')) {
       // Handle picking up items
       // Check if the item is available in the current room and movable
       // Update the player's inventory and room's item list
       // Update the response to indicate successful pickup or failure
-    } else if (command === "inventory") {
+    } else if (playerInput.includes('inventory')) {
       // Display player's inventory
       response = "You are carrying: " + playerInventory.join(", ");
     } else {
@@ -124,7 +121,7 @@ export const domDisplay = (playerInput) => {
       response = "I don't know how to " + command;
     }
     // Return the response to be displayed in the game interface
-    console.log(response);
+    return response;
     
     const userInput = "look"; // Sample user input
     const displayText = domDisplay(playerInput);
