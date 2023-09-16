@@ -80,11 +80,11 @@ export const domDisplay = (playerInput) => {
           exits: ['entryway', 'bedroom'],
         },
         bedroom: {
-          description: 'You are in the bedroom. There is a king bed, dresser, .',
+          description: 'You are in the bedroom. There is a king bed, dresser, cellphone, and a book. You can see the stairs and the bathroom',
           exits: ['stairs', 'bathroom'],
         },
         bathroom: {
-          description: 'You are in the bathroom. There is a bathtub and a sink.',
+          description: 'You are in the bathroom. There is a bathtub, toothbrush, lipstick, and handsoap. You can see the bedroom.',
           exits: ['bedroom'],
         },
       };
@@ -108,7 +108,7 @@ export const domDisplay = (playerInput) => {
     // Check the command and perform actions accordingly
     if (command === "look") {
       // Display room description
-      response = currentLocation.description;
+      response = locations[currentLocation].description;
     } else if (command === "enter") {
       
     } else if (command === "pickup") {
@@ -123,9 +123,8 @@ export const domDisplay = (playerInput) => {
       // Unknown command
       response = "I don't know how to " + command;
     }
-    
     // Return the response to be displayed in the game interface
-    //return response;
+    console.log(response);
     
     const userInput = "look"; // Sample user input
     const displayText = domDisplay(playerInput);
